@@ -1,0 +1,53 @@
+version: '2'
+services:
+  app:
+    build:
+      context: ./
+      args:
+        - INSTALL_XDEBUG=true
+        - INSTALL_PHPREDIS=true
+        - INSTALL_INTL=true
+      dockerfile: ./docker/app.dockerfile
+    working_dir: /var/www
+    volumes:
+      - ./:/var/www # Replace with correct project path
+    environment:
+      - "DB_PORT=3306"
+      - "DB_HOST=database"
+
+  web:
+    build:
+      context: ./
+      dockerfile: ./docker/web.dockerfile
+    working_dir: /var/www
+    volumes_from:
+      - app
+    ports:
+      - "8000:80" # Replace 8000 with a non used port of other project
+
+  database:
+    image: mysql:5.7.21
+    volumes:
+      - "./docker/database:/var/lib/mysql"
+    environment:
+      - "MYSQL_DATABASE=merp_app"
+      - "MYSQL_USER=root"
+      - "MYSQL_PASSWORD=root"
+      - "MYSQL_ROOT_PASSWORD=root"
+    ports:
+      - "33061:3306" # Replace 33060 with a non used port of other project
+    expose:
+      - "33061"
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    links:
+      - database:db
+    depends_on:
+      - database
+    ports:
+      - 9191:80
+    environment:
+      - "MYSQL_USERNAME:root"
+      - "MYSQL_ROOT_PASSWORD:root"
+      - "PMA_HOST:database"
