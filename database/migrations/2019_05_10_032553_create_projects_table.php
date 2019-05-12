@@ -21,12 +21,12 @@ class CreateProjectsTable extends Migration
     {
         Schema::create('projects', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('address');
+            $table->string('address', 128);
             $table->bigInteger('circuit_id')->unsigned();
             $table->bigInteger('city_id')->unsigned();
-            $table->string('code');
+            $table->string('code', 16);
             $table->smallInteger('electrical_voltage_level');
-            $table->string('image');
+            $table->string('image', 255);
             $table->boolean('status');
             $table->bigInteger('type_network_id')->unsigned();
             $table->bigInteger('type_town_id')->unsigned();

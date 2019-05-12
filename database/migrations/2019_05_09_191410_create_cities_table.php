@@ -22,7 +22,7 @@ class CreateCitiesTable extends Migration
         Schema::create('cities', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('department_id')->unsigned();
-            $table->string('name');
+            $table->string('name', 64);
             $table->timestamps();
 
             $table->foreign('department_id')->references('id')->on('departments');

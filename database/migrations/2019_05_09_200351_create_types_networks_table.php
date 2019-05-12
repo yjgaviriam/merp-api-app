@@ -21,7 +21,7 @@ class CreateTypesNetworksTable extends Migration
     {
         Schema::create('types_networks', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
+            $table->string('name', 64);
             $table->timestamps();
         });
     }
