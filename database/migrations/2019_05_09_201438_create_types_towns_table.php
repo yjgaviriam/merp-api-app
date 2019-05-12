@@ -21,7 +21,7 @@ class CreateTypesTownsTable extends Migration
     {
         Schema::create('types_towns', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
+            $table->string('name', 64);
             $table->timestamps();
         });
     }
