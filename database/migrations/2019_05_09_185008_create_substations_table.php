@@ -21,8 +21,8 @@ class CreateSubstationsTable extends Migration
     {
         Schema::create('substations', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('code');
-            $table->string('name');
+            $table->string('code', 16)->unique();
+            $table->string('name', 56)->unique();
             $table->timestamps();
         });
     }

@@ -3,10 +3,6 @@ services:
   app:
     build:
       context: ./
-      args:
-        - INSTALL_XDEBUG=true
-        - INSTALL_PHPREDIS=true
-        - INSTALL_INTL=true
       dockerfile: ./docker/app.dockerfile
     working_dir: /var/www
     volumes:
