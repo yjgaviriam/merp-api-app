@@ -5,12 +5,12 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 /**
- * Clase dedicada para modelar los campos de la tabla departments
+ * Clase dedicada para modelar los campos de la tabla roles
  *
- * @author Jhonier Gaviria M. - May. 09-2019
+ * @author Jhonier Gaviria M. - May. 12-2019
  * @version 1.0.0
  */
-class CreateDepartmentsTable extends Migration
+class CreateRolesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -19,9 +19,9 @@ class CreateDepartmentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('departments', function (Blueprint $table) {
+        Schema::create('roles', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name', 64);
+            $table->string('name', 16);
             $table->timestamps();
         });
     }
@@ -33,6 +33,6 @@ class CreateDepartmentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('departments');
+        Schema::dropIfExists('roles');
     }
 }

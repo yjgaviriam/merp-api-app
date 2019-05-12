@@ -21,8 +21,8 @@ class CreateCircuitsTable extends Migration
     {
         Schema::create('circuits', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('code');
-            $table->string('name');
+            $table->string('code', 16);
+            $table->string('name', 64);
             $table->bigInteger('substation_id')->unsigned();
             $table->timestamps();
 

@@ -2,20 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Models\Contract;
+use App\User;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 
 /**
- * Controlador dedicado al manejo de la logica de los contratos
+ * Controlador dedicado al manejo de la logica de los usuarios
  *
  * @author Jhonier Gaviria M. - May. 12-2019
  * @version 1.0.0
  * @package App\Http\Controllers
  */
-class ContractController extends Controller
+class UserController extends Controller
 {
 
     /**
@@ -29,14 +29,14 @@ class ContractController extends Controller
     }
 
     /**
-     * Permite obtener el listado de contratos
+     * Permite obtener el listado de usuarios
      *
      * @return \Illuminate\Http\JsonResponse
      */
     public function index()
     {
         return response()->json([
-            'data' => Contract::all()
+            'data' => User::all()
         ], Response::HTTP_OK);
     }
 
@@ -51,7 +51,7 @@ class ContractController extends Controller
     }
 
     /**
-     * Permite agregar un nuevo contrato
+     * Permite agregar un nuevo usuario
      *
      * @return \Illuminate\Http\JsonResponse
      */
@@ -61,9 +61,11 @@ class ContractController extends Controller
             // Obtenemos los parametros recibidos
             $params = $this->request->all();
 
-            (new Contract())->create([
-                'code' => $params['code'],
-                'date' => $params['date']
+            (new User())->create([
+                'enterprise_id' => $params['enterprise_id'],
+                'last_name' => $params['last_name'],
+                'name' => $params['name'],
+                'role_id' => $params['role_id']
             ]);
 
             return response()->json([
