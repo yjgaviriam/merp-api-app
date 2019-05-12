@@ -45,6 +45,11 @@ class UserController extends Controller
 
     }
 
+    public function login()
+    {
+
+    }
+
     public function show()
     {
 
@@ -62,6 +67,7 @@ class UserController extends Controller
             $params = $this->request->all();
 
             (new User())->create([
+                'email' => $params['email'],
                 'enterprise_id' => $params['enterprise_id'],
                 'last_name' => $params['last_name'],
                 'name' => $params['name'],

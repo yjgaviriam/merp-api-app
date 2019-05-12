@@ -2,6 +2,12 @@
 
 use Illuminate\Database\Seeder;
 
+/**
+ * Clase dedicada para llamar los seeders que realizaran los registros iniciales de cada tabla requerida
+ *
+ * @author Jhonier Gaviria M. - May. 12-2019
+ * @version 1.0.0
+ */
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -11,6 +17,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call('UsersTableSeeder');
+        $this->call('RolesTableSeeder');
+        $this->call('EnterprisesTableSeeder');
+        $this->call('UsersTableSeeder');
     }
 }
