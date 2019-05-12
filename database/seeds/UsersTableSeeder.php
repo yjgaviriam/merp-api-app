@@ -23,6 +23,7 @@ class UsersTableSeeder extends Seeder
         DB::table('users')->insert([
             'name' => 'Andres',
             'last_name' => 'Gallego',
+            'nickname' => 'agallego',
             'email' => 'andres.gallego@edeq.com.co',
             'password' => Hash::make('123'),
             'role_id' => Role::ROLE_INSPECTOR,

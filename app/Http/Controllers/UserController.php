@@ -71,6 +71,7 @@ class UserController extends Controller
                 'enterprise_id' => $params['enterprise_id'],
                 'last_name' => $params['last_name'],
                 'name' => $params['name'],
+                'nickname' => $params['nickname'],
                 'role_id' => $params['role_id']
             ]);
 
