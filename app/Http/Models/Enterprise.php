@@ -12,13 +12,13 @@ namespace App\Http\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Modelo representativo de un contracto
+ * Modelo representativo de una empresa
  *
  * @author Jhonier Gaviria M. - May. 12-2019
  * @version 1.0.0
  * @package App\Http\Models
  */
-class Contract extends Model
+class Enterprise extends Model
 {
 
     /**
@@ -26,5 +26,5 @@ class Contract extends Model
      *
      * @var array
      */
-    protected $fillable = ['code', 'date', 'enterprise_id'];
+    protected $fillable = ['name', 'nit'];
 }

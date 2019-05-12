@@ -5,12 +5,12 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 /**
- * Clase dedicada para modelar los campos de la tabla contracts
+ * Clase dedicada para modelar los campos de la tabla enterprises
  *
  * @author Jhonier Gaviria M. - May. 11-2019
  * @version 1.0.0
  */
-class CreateContractsTable extends Migration
+class CreateEnterprisesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -19,14 +19,11 @@ class CreateContractsTable extends Migration
      */
     public function up()
     {
-        Schema::create('contracts', function (Blueprint $table) {
+        Schema::create('enterprises', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('code', 16)->unique();
-            $table->dateTime('date');
-            $table->bigInteger('enterprise_id')->unsigned();
+            $table->string('name');
+            $table->string('nit', 16)->unique();
             $table->timestamps();
-
-            $table->foreign('enterprise_id')->references('id')->on('enterprises');
         });
     }
 
@@ -37,6 +34,6 @@ class CreateContractsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('contracts');
+        Schema::dropIfExists('enterprises');
     }
 }

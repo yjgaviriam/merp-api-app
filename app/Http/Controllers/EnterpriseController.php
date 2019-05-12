@@ -2,20 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Models\Contract;
+use App\Http\Models\Enterprise;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 
 /**
- * Controlador dedicado al manejo de la logica de los contratos
+ * Controlador dedicado al manejo de la logica de las empresas
  *
  * @author Jhonier Gaviria M. - May. 12-2019
  * @version 1.0.0
  * @package App\Http\Controllers
  */
-class ContractController extends Controller
+class EnterpriseController extends Controller
 {
 
     /**
@@ -29,14 +29,14 @@ class ContractController extends Controller
     }
 
     /**
-     * Permite obtener el listado de contratos
+     * Permite obtener el listado de empresas
      *
      * @return \Illuminate\Http\JsonResponse
      */
     public function index()
     {
         return response()->json([
-            'data' => Contract::all()
+            'data' => Enterprise::all()
         ], Response::HTTP_OK);
     }
 
@@ -51,7 +51,7 @@ class ContractController extends Controller
     }
 
     /**
-     * Permite agregar un nuevo contrato
+     * Permite agregar una nueva empresa
      *
      * @return \Illuminate\Http\JsonResponse
      */
@@ -61,10 +61,9 @@ class ContractController extends Controller
             // Obtenemos los parametros recibidos
             $params = $this->request->all();
 
-            (new Contract())->create([
-                'code' => $params['code'],
-                'date' => $params['date'],
-                'enterprise_id' => $params['enterprise_id']
+            (new Enterprise())->create([
+                'name' => $params['name'],
+                'nit' => $params['nit']
             ]);
 
             return response()->json([
