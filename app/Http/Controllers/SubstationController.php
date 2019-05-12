@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Models\Substation;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 
 /**
@@ -14,10 +17,6 @@ use Illuminate\Http\Request;
  */
 class SubstationController extends Controller
 {
-    /**
-     * @var \Request
-     */
-    private $request;
 
     /**
      * Create a new controller instance.
@@ -29,7 +28,59 @@ class SubstationController extends Controller
         $this->request = $request;
     }
 
+    /**
+     * Permite obtener el listado de subestaciones
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function index()
+    {
+        return response()->json([
+            'data' => Substation::all()
+        ], Response::HTTP_OK);
+    }
+
+    public function destroy()
+    {
+
+    }
+
+    public function show()
+    {
+
+    }
+
+    /**
+     * Permite agregar una nueva subestacion
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function store()
+    {
+        try {
+            // Obtenemos los parametros recibidos
+            $params = $this->request->all();
+
+            (new Substation())->create([
+                'code' => $params['code'],
+                'name' => $params['name']
+            ]);
+
+            return response()->json([
+                'data' => [
+                    'message' => 'Registro creado.'
+                ]
+            ], Response::HTTP_CREATED);
+        } catch (Exception $exception) {
+            return response()->json([
+                'data' => [
+                    'message' => 'Error al crear el registro.'
+                ]
+            ], Response::HTTP_BAD_REQUEST);
+        }
+    }
+
+    public function update()
     {
 
     }
