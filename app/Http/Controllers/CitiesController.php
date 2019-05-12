@@ -14,10 +14,6 @@ use Illuminate\Http\Request;
  */
 class CitiesController extends Controller
 {
-    /**
-     * @var \Request
-     */
-    private $request;
 
     /**
      * Create a new controller instance.
