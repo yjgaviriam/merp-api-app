@@ -30,7 +30,7 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
         ]);
     });
 
-    $router->get('login', [
+    $router->post('login', [
         'as' => 'user.login', 'uses' => 'UserController@login'
     ]);
 });

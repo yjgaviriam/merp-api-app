@@ -24,17 +24,17 @@ class RolesTableSeeder extends Seeder
             'name' => Role::ROLE_INSPECTOR_NAME
         ]);
 
-        DB::table('users')->insert([
+        DB::table('roles')->insert([
             'id' => Role::ROLE_ASSISTANT_INSPECTOR,
             'name' => Role::ROLE_ASSISTANT_INSPECTOR_NAME
         ]);
 
-        DB::table('users')->insert([
+        DB::table('roles')->insert([
             'id' => Role::ROLE_SUPERVISOR,
             'name' => Role::ROLE_SUPERVISOR_NAME
         ]);
 
-        DB::table('users')->insert([
+        DB::table('roles')->insert([
             'id' => Role::ROLE_PLANNER,
             'name' => Role::ROLE_PLANNER_NAME
         ]);

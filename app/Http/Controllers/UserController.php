@@ -6,6 +6,7 @@ use App\User;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Hash;
 
 
 /**
@@ -17,6 +18,11 @@ use Illuminate\Http\Response;
  */
 class UserController extends Controller
 {
+
+    /**
+     * Token para validar que se tenga acceso a la aplicacion
+     */
+    public const TOKEN = 'evfj8NiMdff20m5SJpUPJcIZMXM1Y';
 
     /**
      * Create a new controller instance.
@@ -45,9 +51,37 @@ class UserController extends Controller
 
     }
 
+    /**
+     * Se encarga de validar el inicio de sesion de un usuario y le entrega un token valido
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function login()
     {
+        // Obtenemos los parametros recibidos
+        $params = $this->request->all();
 
+        // Obtenemos el usuario segun el username recibido
+        $user = User::where('nickname', $params['username'])->first();
+
+        // Si hay un usuario identificado
+        if(isset($user)) {
+
+            // Validamos la contraseña concuerde
+            if(Hash::check($params['password'], $user->password)) {
+                return response()->json([
+                    'data' => [
+                        'token' => self::TOKEN
+                    ]
+                ], Response::HTTP_OK);
+            }
+        }
+
+        return response()->json([
+            'data' => [
+                'message' => 'Usuario no autorizado'
+            ]
+        ], Response::HTTP_UNAUTHORIZED);
     }
 
     public function show()
