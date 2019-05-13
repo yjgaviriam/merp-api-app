@@ -25,9 +25,9 @@ class CreateUsersTable extends Migration
             $table->bigInteger('enterprise_id')->unsigned();
             $table->string('last_name', 64);
             $table->string('name', 64);
-            $table->string('nickname', 64);
             $table->string('password', 255);
             $table->bigInteger('role_id')->unsigned();
+            $table->string('username', 64);
             $table->timestamps();
 
             $table->foreign('enterprise_id')->references('id')->on('enterprises');

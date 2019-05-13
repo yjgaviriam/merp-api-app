@@ -108,9 +108,9 @@ class UserController extends Controller
             (new User())->create([
                 'email' => $params['email'],
                 'enterprise_id' => $params['enterprise_id'],
-                'last_name' => $params['last_name'],
+                'last_name' => $params['lastName'],
                 'name' => $params['name'],
-                'nickname' => $params['nickname'],
+                'username' => $params['username'],
                 'role_id' => $params['role_id']
             ]);
 
