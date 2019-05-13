@@ -40,14 +40,30 @@ class SubstationController extends Controller
         ], Response::HTTP_OK);
     }
 
-    public function destroy()
+    /**
+     * Permite eliminar una subestacion
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function destroy($substationId)
     {
+        try {
+            // Eliminamos la informacion
+            $substation = Substation::findOrFail($substationId);
+            $substation->delete();
 
-    }
-
-    public function show()
-    {
-
+            return response()->json([
+                'data' => [
+                    'message' => 'Registro eliminado.'
+                ]
+            ], Response::HTTP_OK);
+        } catch (Exception $exception) {
+            return response()->json([
+                'data' => [
+                    'message' => 'Error al eliminar el registro.'
+                ]
+            ], Response::HTTP_BAD_REQUEST);
+        }
     }
 
     /**
@@ -80,8 +96,33 @@ class SubstationController extends Controller
         }
     }
 
+    /**
+     * Permite actualizar una subestacion
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function update()
     {
+        try {
+            // Obtenemos los parametros recibidos
+            $params = $this->request->all();
 
+            // Actualizamos la informacion
+            $substation = Substation::findOrFail($params['substationId']);
+            $substation->code = $params['code'];
+            $substation->name = $params['name'];
+
+            return response()->json([
+                'data' => [
+                    'message' => 'Registro actualizado.'
+                ]
+            ], Response::HTTP_OK);
+        } catch (Exception $exception) {
+            return response()->json([
+                'data' => [
+                    'message' => 'Error al actualizar el registro.'
+                ]
+            ], Response::HTTP_BAD_REQUEST);
+        }
     }
 }

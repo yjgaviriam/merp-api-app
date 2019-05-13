@@ -15,10 +15,6 @@ $router->get('/', function () use ($router) {
     return 'Api MERP App';
 });
 
-/*Route::resource('projects', 'ProjectController', [
-    'only' => ['', '', 'update', 'show', 'destroy']
-]);
-*/
 $router->group(['prefix' => 'api/v1'], function () use ($router) {
 
     $router->group(['prefix' => 'substations'], function () use ($router) {
@@ -28,6 +24,12 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
         $router->post('create', [
             'as' => 'substations.create', 'uses' => 'SubstationController@store'
         ]);
+        $router->put('update', [
+            'as' => 'substations.update', 'uses' => 'SubstationController@update'
+        ]);
+        $router->delete('delete/{id}', [
+            'as' => 'substations.delete', 'uses' => 'SubstationController@destroy'
+        ]);
     });
 
     $router->group(['prefix' => 'users'], function () use ($router) {
@@ -36,6 +38,9 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
         ]);
         $router->post('create', [
             'as' => 'users.create', 'uses' => 'UserController@store'
+        ]);
+        $router->put('update', [
+            'as' => 'users.update', 'uses' => 'UserController@update'
         ]);
     });
 
