@@ -1,12 +1,12 @@
 <?php
 
-namespace App;
+namespace App\Http\Models;
 
 use Illuminate\Auth\Authenticatable;
-use Laravel\Lumen\Auth\Authorizable;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
+use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
+use Illuminate\Database\Eloquent\Model;
+use Laravel\Lumen\Auth\Authorizable;
 
 /**
  * Modelo representativo de un usuario
@@ -25,7 +25,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
      * @var array
      */
     protected $fillable = [
-        'email', 'name', 'nickname', 'last_name', 'role_id', 'enterprise_id'
+        'email', 'name', 'nickname', 'last_name'
     ];
 
     /**
@@ -36,4 +36,24 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     protected $hidden = [
         'password',
     ];
+
+    /**
+     * Obtiene la empresa a la cual esta registrado el usuario
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function enterprise()
+    {
+        return $this->belongsTo(Enterprise::class);
+    }
+
+    /**
+     * Obtiene el rol que posee el usuario
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
 }

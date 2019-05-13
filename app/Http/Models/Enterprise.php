@@ -27,4 +27,24 @@ class Enterprise extends Model
      * @var array
      */
     protected $fillable = ['name', 'nit'];
+
+    /**
+     * Obtiene los contratos
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function contracts()
+    {
+        return $this->hasMany(Contract::class);
+    }
+
+    /**
+     * Obtiene los usuarios
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function users()
+    {
+        return $this->hasMany(User::class);
+    }
 }

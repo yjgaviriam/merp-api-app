@@ -27,4 +27,14 @@ class Contract extends Model
      * @var array
      */
     protected $fillable = ['code', 'date', 'enterprise_id'];
+
+    /**
+     * Obtiene la empresa a la cual esta registrado el contrato
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function enterprise()
+    {
+        return $this->belongsTo(Enterprise::class);
+    }
 }
