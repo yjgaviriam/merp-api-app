@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
+use App\Http\Models\Enterprise;
+use App\Http\Models\Role;
+use App\Http\Models\User;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -42,7 +44,7 @@ class UserController extends Controller
     public function index()
     {
         return response()->json([
-            'data' => User::all()
+            'data' => User::with(['role', 'enterprise'])->get()
         ], Response::HTTP_OK);
     }
 
@@ -71,7 +73,10 @@ class UserController extends Controller
             if(Hash::check($params['password'], $user->password)) {
                 return response()->json([
                     'data' => [
-                        'token' => self::TOKEN
+                        'email' => $user->email,
+                        'fullName' => $user->name . ' ' . $user->last_name,
+                        'token' => self::TOKEN,
+                        'username' => $user->username
                     ]
                 ], Response::HTTP_OK);
             }

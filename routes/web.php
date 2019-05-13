@@ -30,6 +30,15 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
         ]);
     });
 
+    $router->group(['prefix' => 'users'], function () use ($router) {
+        $router->get('', [
+            'as' => 'users.index', 'uses' => 'UserController@index'
+        ]);
+        $router->post('create', [
+            'as' => 'users.create', 'uses' => 'UserController@store'
+        ]);
+    });
+
     $router->post('login', [
         'as' => 'user.login', 'uses' => 'UserController@login'
     ]);
