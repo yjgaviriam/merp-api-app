@@ -34,6 +34,20 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
         ]);
     });
 
+    // Rutas para empresas
+    $router->group(['prefix' => 'enterprises'], function () use ($router) {
+        $router->get('', [
+            'as' => 'enterprises.index', 'uses' => 'EnterpriseController@index'
+        ]);
+    });
+
+    // Rutas para roles
+    $router->group(['prefix' => 'roles'], function () use ($router) {
+        $router->get('', [
+            'as' => 'roles.index', 'uses' => 'RoleController@index'
+        ]);
+    });
+
     // Rutas para subestaciones
     $router->group(['prefix' => 'substations'], function () use ($router) {
         $router->get('', [
@@ -60,6 +74,9 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
         ]);
         $router->put('update', [
             'as' => 'users.update', 'uses' => 'UserController@update'
+        ]);
+        $router->delete('delete/{id}', [
+            'as' => 'users.delete', 'uses' => 'UserController@destroy'
         ]);
     });
 

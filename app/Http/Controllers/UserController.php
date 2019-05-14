@@ -47,9 +47,31 @@ class UserController extends Controller
         ], Response::HTTP_OK);
     }
 
-    public function destroy()
+    /**
+     * Permite eliminar un usuario
+     *
+     * @param $userId Identificador del usuario
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function destroy($userId)
     {
+        try {
+            // Eliminamos la informacion
+            $user = User::findOrFail($userId);
+            $user->delete();
 
+            return response()->json([
+                'data' => [
+                    'message' => 'Registro eliminado.'
+                ]
+            ], Response::HTTP_OK);
+        } catch (Exception $exception) {
+            return response()->json([
+                'data' => [
+                    'message' => 'Error al eliminar el registro.'
+                ]
+            ], Response::HTTP_BAD_REQUEST);
+        }
     }
 
     /**
@@ -86,11 +108,6 @@ class UserController extends Controller
         ], Response::HTTP_UNAUTHORIZED);
     }
 
-    public function show()
-    {
-
-    }
-
     /**
      * Permite agregar un nuevo usuario
      *
@@ -102,14 +119,16 @@ class UserController extends Controller
             // Obtenemos los parametros recibidos
             $params = $this->request->all();
 
-            (new User())->create([
-                'email' => $params['email'],
-                'enterprise_id' => $params['enterprise_id'],
-                'last_name' => $params['lastName'],
-                'name' => $params['name'],
-                'username' => $params['username'],
-                'role_id' => $params['role_id']
-            ]);
+            // Se crea el registro
+            $user = new User();
+            $user->email = $params['email'];
+            $user->enterprise_id = $params['enterpriseId'];
+            $user->last_name = $params['lastName'];
+            $user->name = $params['name'];
+            $user->password = Hash::make($params['password']);
+            $user->username = $params['username'];
+            $user->role_id = $params['roleId'];
+            $user->save();
 
             return response()->json([
                 'data' => [
