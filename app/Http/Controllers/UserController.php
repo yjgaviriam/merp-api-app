@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Models\Enterprise;
-use App\Http\Models\Role;
 use App\Http\Models\User;
+use App\Http\Resources\UserResource;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -44,7 +43,7 @@ class UserController extends Controller
     public function index()
     {
         return response()->json([
-            'data' => User::with(['role', 'enterprise'])->get()
+            'data' => UserResource::collection(User::with(['role', 'enterprise'])->get())
         ], Response::HTTP_OK);
     }
 
@@ -64,13 +63,13 @@ class UserController extends Controller
         $params = $this->request->all();
 
         // Obtenemos el usuario segun el username recibido
-        $user = User::with(['role', 'enterprise'])->first();
+        $user = UserResource::make(User::with(['role', 'enterprise'])->where('username', $params['username'])->first());
 
         // Si hay un usuario identificado
-        if(isset($user)) {
+        if (isset($user)) {
 
             // Validamos la contraseña concuerde
-            if(Hash::check($params['password'], $user->password)) {
+            if (Hash::check($params['password'], $user->password)) {
                 return response()->json([
                     'data' => [
                         'token' => self::TOKEN,
