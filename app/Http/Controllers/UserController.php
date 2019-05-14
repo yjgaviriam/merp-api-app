@@ -64,7 +64,7 @@ class UserController extends Controller
         $params = $this->request->all();
 
         // Obtenemos el usuario segun el username recibido
-        $user = User::where('nickname', $params['username'])->first();
+        $user = User::with(['role', 'enterprise'])->first();
 
         // Si hay un usuario identificado
         if(isset($user)) {
@@ -73,10 +73,8 @@ class UserController extends Controller
             if(Hash::check($params['password'], $user->password)) {
                 return response()->json([
                     'data' => [
-                        'email' => $user->email,
-                        'fullName' => $user->name . ' ' . $user->last_name,
                         'token' => self::TOKEN,
-                        'username' => $user->username
+                        'user' => $user
                     ]
                 ], Response::HTTP_OK);
             }
