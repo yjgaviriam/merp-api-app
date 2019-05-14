@@ -27,4 +27,14 @@ class Circuit extends Model
      * @var array
      */
     protected $fillable = ['code', 'name', 'substation_id'];
+
+    /**
+     * Obtiene la subestacion a la cual esta registrado el circuito
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function substation()
+    {
+        return $this->belongsTo(Substation::class);
+    }
 }

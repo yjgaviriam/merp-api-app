@@ -27,4 +27,14 @@ class Substation extends Model
      * @var array
      */
     protected $fillable = ['code', 'name'];
+
+    /**
+     * Obtiene los circuitos
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function circuits()
+    {
+        return $this->hasMany(Circuit::class);
+    }
 }

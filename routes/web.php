@@ -18,6 +18,21 @@ $router->get('/', function () use ($router) {
 // Rutas de primera version del api
 $router->group(['prefix' => 'api/v1'], function () use ($router) {
 
+    // Rutas para circuitos
+    $router->group(['prefix' => 'circuits'], function () use ($router) {
+        $router->get('', [
+            'as' => 'circuits.index', 'uses' => 'CircuitController@index'
+        ]);
+        $router->post('create', [
+            'as' => 'circuits.create', 'uses' => 'CircuitController@store'
+        ]);
+        $router->put('update', [
+            'as' => 'circuits.update', 'uses' => 'CircuitController@update'
+        ]);
+        $router->delete('delete/{id}', [
+            'as' => 'circuits.delete', 'uses' => 'CircuitController@destroy'
+        ]);
+    });
 
     // Rutas para subestaciones
     $router->group(['prefix' => 'substations'], function () use ($router) {
