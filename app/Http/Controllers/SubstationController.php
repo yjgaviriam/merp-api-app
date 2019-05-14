@@ -43,6 +43,7 @@ class SubstationController extends Controller
     /**
      * Permite eliminar una subestacion
      *
+     * @param $substationId Identificador de la subestacion
      * @return \Illuminate\Http\JsonResponse
      */
     public function destroy($substationId)
