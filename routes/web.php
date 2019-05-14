@@ -15,8 +15,11 @@ $router->get('/', function () use ($router) {
     return 'Api MERP App';
 });
 
+// Rutas de primera version del api
 $router->group(['prefix' => 'api/v1'], function () use ($router) {
 
+
+    // Rutas para subestaciones
     $router->group(['prefix' => 'substations'], function () use ($router) {
         $router->get('', [
             'as' => 'substations.index', 'uses' => 'SubstationController@index'
@@ -32,6 +35,7 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
         ]);
     });
 
+    // Rutas para usuarios
     $router->group(['prefix' => 'users'], function () use ($router) {
         $router->get('', [
             'as' => 'users.index', 'uses' => 'UserController@index'
@@ -44,6 +48,7 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
         ]);
     });
 
+    // Ruta para login
     $router->post('login', [
         'as' => 'user.login', 'uses' => 'UserController@login'
     ]);

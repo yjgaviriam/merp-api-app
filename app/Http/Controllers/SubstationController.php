@@ -109,9 +109,10 @@ class SubstationController extends Controller
             $params = $this->request->all();
 
             // Actualizamos la informacion
-            $substation = Substation::findOrFail($params['substationId']);
+            $substation = Substation::findOrFail($params['id']);
             $substation->code = $params['code'];
             $substation->name = $params['name'];
+            $substation->save();
 
             return response()->json([
                 'data' => [
