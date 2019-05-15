@@ -31,6 +31,7 @@ class CreateProjectsTable extends Migration
             $table->bigInteger('type_network_id')->unsigned();
             $table->bigInteger('type_town_id')->unsigned();
             $table->timestamps();
+            $table->softDeletes();
 
             $table->foreign('circuit_id')->references('id')->on('circuits');
             $table->foreign('city_id')->references('id')->on('cities');
