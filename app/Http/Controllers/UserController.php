@@ -144,8 +144,38 @@ class UserController extends Controller
         }
     }
 
+    /**
+     * Permite actualizar un usuario
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function update()
     {
+        try {
+            // Obtenemos los parametros recibidos
+            $params = $this->request->all();
 
+            // Actualizamos la informacion
+            $user = User::findOrFail($params['id']);
+            $user->email = $params['email'];
+            $user->enterprise_id = $params['enterpriseId'];
+            $user->last_name = $params['lastName'];
+            $user->name = $params['name'];
+            $user->role_id = $params['roleId'];
+            $user->username = $params['username'];
+            $user->save();
+
+            return response()->json([
+                'data' => [
+                    'message' => 'Registro actualizado.'
+                ]
+            ], Response::HTTP_OK);
+        } catch (Exception $exception) {
+            return response()->json([
+                'data' => [
+                    'message' => 'Error al actualizar el registro.'
+                ]
+            ], Response::HTTP_BAD_REQUEST);
+        }
     }
 }
