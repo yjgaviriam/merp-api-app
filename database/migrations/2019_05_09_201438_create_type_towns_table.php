@@ -5,12 +5,12 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 /**
- * Clase dedicada para modelar los campos de la tabla types_networks
+ * Clase dedicada para modelar los campos de la tabla type_towns
  *
  * @author Jhonier Gaviria M. - May. 09-2019
  * @version 1.0.0
  */
-class CreateTypesNetworksTable extends Migration
+class CreateTypeTownsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -19,7 +19,7 @@ class CreateTypesNetworksTable extends Migration
      */
     public function up()
     {
-        Schema::create('types_networks', function (Blueprint $table) {
+        Schema::create('type_towns', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name', 64);
             $table->timestamps();
@@ -33,6 +33,6 @@ class CreateTypesNetworksTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('types_networks');
+        Schema::dropIfExists('type_towns');
     }
 }

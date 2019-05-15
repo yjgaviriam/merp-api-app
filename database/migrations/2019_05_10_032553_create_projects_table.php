@@ -35,8 +35,8 @@ class CreateProjectsTable extends Migration
 
             $table->foreign('circuit_id')->references('id')->on('circuits');
             $table->foreign('city_id')->references('id')->on('cities');
-            $table->foreign('type_network_id')->references('id')->on('types_networks');
-            $table->foreign('type_town_id')->references('id')->on('types_towns');
+            $table->foreign('type_network_id')->references('id')->on('type_networks');
+            $table->foreign('type_town_id')->references('id')->on('type_towns');
         });
     }
 
