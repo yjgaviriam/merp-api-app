@@ -47,4 +47,14 @@ class TypeNetwork extends Model
      * @var array
      */
     protected $fillable = ['name'];
+
+    /**
+     * Obtiene los proyectos asociados
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function projects()
+    {
+        return $this->hasMany(Project::class);
+    }
 }

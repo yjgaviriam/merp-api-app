@@ -20,13 +20,13 @@ class TypeTownsTableSeeder extends Seeder
     public function run()
     {
         DB::table('type_towns')->insert([
-            'id' => TypeTown::TYPE_TOWN_VILLAGE,
-            'name' => TypeTown::TYPE_TOWN_VILLAGE_NAME
+            'id' => TypeTown::TYPE_TOWN_NEIGHBORHOOD,
+            'name' => TypeTown::TYPE_TOWN_NEIGHBORHOOD_NAME
         ]);
 
         DB::table('type_towns')->insert([
-            'id' => TypeTown::TYPE_TOWN_NEIGHBORHOOD,
-            'name' => TypeTown::TYPE_TOWN_NEIGHBORHOOD_NAME
+            'id' => TypeTown::TYPE_TOWN_VILLAGE,
+            'name' => TypeTown::TYPE_TOWN_VILLAGE_NAME
         ]);
     }
 }

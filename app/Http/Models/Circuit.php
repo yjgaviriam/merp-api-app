@@ -37,4 +37,14 @@ class Circuit extends Model
     {
         return $this->belongsTo(Substation::class);
     }
+
+    /**
+     * Obtiene los proyectos asociados
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function projects()
+    {
+        return $this->hasMany(Project::class);
+    }
 }

@@ -78,6 +78,21 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
         $router->get('', [
             'as' => 'enterprises.index', 'uses' => 'EnterpriseController@index'
         ]);
+
+    // Rutas para proyectos
+    $router->group(['prefix' => 'projects'], function () use ($router) {
+        $router->get('', [
+            'as' => 'projects.index', 'uses' => 'ProjectController@index'
+        ]);
+        $router->post('create', [
+            'as' => 'projects.create', 'uses' => 'ProjectController@store'
+        ]);
+        $router->put('update', [
+            'as' => 'projects.update', 'uses' => 'ProjectController@update'
+        ]);
+        $router->delete('delete/{id}', [
+            'as' => 'projects.delete', 'uses' => 'ProjectController@destroy'
+        ]);
     });
 
     // Rutas para roles
@@ -100,6 +115,20 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
         ]);
         $router->delete('delete/{id}', [
             'as' => 'substations.delete', 'uses' => 'SubstationController@destroy'
+        ]);
+    });
+
+    // Rutas para tipos de red
+    $router->group(['prefix' => 'type-networks'], function () use ($router) {
+        $router->get('', [
+            'as' => 'type.networks.index', 'uses' => 'TypeNetworkController@index'
+        ]);
+    });
+
+    // Rutas para tipos de localidad
+    $router->group(['prefix' => 'type-towns'], function () use ($router) {
+        $router->get('', [
+            'as' => 'type.towns.index', 'uses' => 'TypeTownController@index'
         ]);
     });
 

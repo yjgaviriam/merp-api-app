@@ -24,22 +24,22 @@ class TypeTown extends Model
     /**
      * Identificador por defecto para el tipo de sector barrio
      */
-    public const TYPE_TOWN_VILLAGE = 1;
+    public const TYPE_TOWN_NEIGHBORHOOD = 1;
 
     /**
      * Identificador por defecto para el tipo de sector vereda
      */
-    public const TYPE_TOWN_NEIGHBORHOOD = 2;
+    public const TYPE_TOWN_VILLAGE = 2;
 
     /**
      * Nombre por defecto para el tipo de sector barrio
      */
-    public const TYPE_TOWN_VILLAGE_NAME = 'Barrio';
+    public const TYPE_TOWN_NEIGHBORHOOD_NAME = 'Barrio';
 
     /**
      * Nombre por defecto para el tipo de sector vereda
      */
-    public const TYPE_TOWN_NEIGHBORHOOD_NAME = 'Vereda';
+    public const TYPE_TOWN_VILLAGE_NAME = 'Vereda';
 
     /**
      * The attributes that are mass assignable.
@@ -47,4 +47,14 @@ class TypeTown extends Model
      * @var array
      */
     protected $fillable = ['name'];
+
+    /**
+     * Obtiene los proyectos asociados
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function projects()
+    {
+        return $this->hasMany(Project::class);
+    }
 }

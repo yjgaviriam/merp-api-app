@@ -10,6 +10,7 @@ namespace App\Http\Models;
 
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Modelo representativo de un proyecto
@@ -20,6 +21,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Project extends Model
 {
+
+    use SoftDeletes;
 
     /**
      * Indica que el proyecto esta en un estado pendiente
@@ -51,4 +54,44 @@ class Project extends Model
      * @var array
      */
     protected $fillable = ['address', 'circuit_id', 'city_id', 'code', 'electrical_voltage_level', 'image', 'status', 'type_network_id', 'type_town_id'];
+
+    /**
+     * Obtiene el municipio donde se encuentra el proyecto
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function city()
+    {
+        return $this->belongsTo(City::class);
+    }
+
+    /**
+     * Obtiene el tipo de red que maneja el proyecto
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function typeNetwork()
+    {
+        return $this->belongsTo(TypeNetwork::class);
+    }
+
+    /**
+     * Obtiene el tipo de circuito que maneja el proyecto
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function circuit()
+    {
+        return $this->belongsTo(Circuit::class);
+    }
+
+    /**
+     * Obtiene si el proyecto esta en un barrio o vereda
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function typeTown()
+    {
+        return $this->belongsTo(TypeTown::class);
+    }
 }

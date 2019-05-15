@@ -37,4 +37,14 @@ class City extends Model
     {
         return $this->belongsTo(Department::class);
     }
+
+    /**
+     * Obtiene los proyectos asociados
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function projects()
+    {
+        return $this->hasMany(Project::class);
+    }
 }
