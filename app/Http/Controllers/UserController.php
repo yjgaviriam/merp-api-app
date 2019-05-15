@@ -88,7 +88,7 @@ class UserController extends Controller
         $user = UserResource::make(User::with(['role', 'enterprise'])->where('username', $params['username'])->first());
 
         // Si hay un usuario identificado
-        if (isset($user)) {
+        if (isset($user->password)) {
 
             // Validamos la contraseña concuerde
             if (Hash::check($params['password'], $user->password)) {

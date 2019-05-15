@@ -40,14 +40,31 @@ class EnterpriseController extends Controller
         ], Response::HTTP_OK);
     }
 
-    public function destroy()
+    /**
+     * Permite eliminar una empresa
+     *
+     * @param $enterpriseId Identificador del la empresa
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function destroy($enterpriseId)
     {
+        try {
+            // Eliminamos la informacion
+            $enterprise = Enterprise::findOrFail($enterpriseId);
+            $enterprise->delete();
 
-    }
-
-    public function show()
-    {
-
+            return response()->json([
+                'data' => [
+                    'message' => 'Registro eliminado.'
+                ]
+            ], Response::HTTP_OK);
+        } catch (Exception $exception) {
+            return response()->json([
+                'data' => [
+                    'message' => 'Error al eliminar el registro.'
+                ]
+            ], Response::HTTP_BAD_REQUEST);
+        }
     }
 
     /**
@@ -80,8 +97,34 @@ class EnterpriseController extends Controller
         }
     }
 
+    /**
+     * Permite actualizar una empresa
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function update()
     {
+        try {
+            // Obtenemos los parametros recibidos
+            $params = $this->request->all();
 
+            // Actualizamos la informacion
+            $enterprise = Enterprise::findOrFail($params['id']);
+            $enterprise->name = $params['name'];
+            $enterprise->nit = $params['nit'];
+            $enterprise->save();
+
+            return response()->json([
+                'data' => [
+                    'message' => 'Registro actualizado.'
+                ]
+            ], Response::HTTP_OK);
+        } catch (Exception $exception) {
+            return response()->json([
+                'data' => [
+                    'message' => 'Error al actualizar el registro.'
+                ]
+            ], Response::HTTP_BAD_REQUEST);
+        }
     }
 }

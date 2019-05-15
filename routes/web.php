@@ -78,6 +78,16 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
         $router->get('', [
             'as' => 'enterprises.index', 'uses' => 'EnterpriseController@index'
         ]);
+        $router->post('create', [
+            'as' => 'enterprises.create', 'uses' => 'EnterpriseController@store'
+        ]);
+        $router->put('update', [
+            'as' => 'enterprises.update', 'uses' => 'EnterpriseController@update'
+        ]);
+        $router->delete('delete/{id}', [
+            'as' => 'enterprises.delete', 'uses' => 'EnterpriseController@destroy'
+        ]);
+    });
 
     // Rutas para proyectos
     $router->group(['prefix' => 'projects'], function () use ($router) {

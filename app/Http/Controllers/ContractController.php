@@ -36,18 +36,29 @@ class ContractController extends Controller
     public function index()
     {
         return response()->json([
-            'data' => Contract::all()
+            'data' => Contract::with(['enterprise'])->get()
         ], Response::HTTP_OK);
     }
 
-    public function destroy()
+    public function destroy($contractId)
     {
+        try {
+            // Eliminamos la informacion
+            $contract = Contract::findOrFail($contractId);
+            $contract->delete();
 
-    }
-
-    public function show()
-    {
-
+            return response()->json([
+                'data' => [
+                    'message' => 'Registro eliminado.'
+                ]
+            ], Response::HTTP_OK);
+        } catch (Exception $exception) {
+            return response()->json([
+                'data' => [
+                    'message' => 'Error al eliminar el registro.'
+                ]
+            ], Response::HTTP_BAD_REQUEST);
+        }
     }
 
     /**
@@ -64,7 +75,7 @@ class ContractController extends Controller
             (new Contract())->create([
                 'code' => $params['code'],
                 'date' => $params['date'],
-                'enterprise_id' => $params['enterprise_id']
+                'enterprise_id' => $params['enterpriseId']
             ]);
 
             return response()->json([
@@ -75,14 +86,41 @@ class ContractController extends Controller
         } catch (Exception $exception) {
             return response()->json([
                 'data' => [
-                    'message' => 'Error al crear el registro.'
+                    'message' => 'Error al crear el registro.' . $exception
                 ]
             ], Response::HTTP_BAD_REQUEST);
         }
     }
 
+    /**
+     * Permite actualizar un contrato
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function update()
     {
+        try {
+            // Obtenemos los parametros recibidos
+            $params = $this->request->all();
 
+            // Actualizamos la informacion
+            $contract = Contract ::findOrFail($params['id']);
+            $contract->code = $params['code'];
+            $contract->date = $params['date'];
+            $contract->enterprise_id = $params['enterpriseId'];
+            $contract->save();
+
+            return response()->json([
+                'data' => [
+                    'message' => 'Registro actualizado.'
+                ]
+            ], Response::HTTP_OK);
+        } catch (Exception $exception) {
+            return response()->json([
+                'data' => [
+                    'message' => 'Error al actualizar el registro.'
+                ]
+            ], Response::HTTP_BAD_REQUEST);
+        }
     }
 }
