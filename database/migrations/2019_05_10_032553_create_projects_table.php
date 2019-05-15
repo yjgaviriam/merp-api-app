@@ -26,7 +26,7 @@ class CreateProjectsTable extends Migration
             $table->bigInteger('city_id')->unsigned();
             $table->string('code', 16);
             $table->smallInteger('electrical_voltage_level');
-            $table->string('image', 255);
+            $table->string('image', 255)->nullable();
             $table->boolean('status');
             $table->bigInteger('type_network_id')->unsigned();
             $table->bigInteger('type_town_id')->unsigned();
