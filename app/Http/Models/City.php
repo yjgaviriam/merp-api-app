@@ -27,4 +27,14 @@ class City extends Model
      * @var array
      */
     protected $fillable = ['name', 'department_id'];
+
+    /**
+     * Obtiene el departamento al cual esta registrado el municipio
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function department()
+    {
+        return $this->belongsTo(Department::class);
+    }
 }

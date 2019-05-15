@@ -34,6 +34,45 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
         ]);
     });
 
+    // Rutas para municipios
+    $router->group(['prefix' => 'cities'], function () use ($router) {
+        $router->get('', [
+            'as' => 'cities.index', 'uses' => 'CitiesController@index'
+        ]);
+        $router->post('create', [
+            'as' => 'cities.create', 'uses' => 'CitiesController@store'
+        ]);
+        $router->put('update', [
+            'as' => 'cities.update', 'uses' => 'CitiesController@update'
+        ]);
+        $router->delete('delete/{id}', [
+            'as' => 'cities.delete', 'uses' => 'CitiesController@destroy'
+        ]);
+    });
+
+    // Rutas para contratos
+    $router->group(['prefix' => 'contracts'], function () use ($router) {
+        $router->get('', [
+            'as' => 'contracts.index', 'uses' => 'ContractController@index'
+        ]);
+        $router->post('create', [
+            'as' => 'contracts.create', 'uses' => 'ContractController@store'
+        ]);
+        $router->put('update', [
+            'as' => 'contracts.update', 'uses' => 'ContractController@update'
+        ]);
+        $router->delete('delete/{id}', [
+            'as' => 'contracts.delete', 'uses' => 'ContractController@destroy'
+        ]);
+    });
+
+    // Rutas para departamentos
+    $router->group(['prefix' => 'departments'], function () use ($router) {
+        $router->get('', [
+            'as' => 'departments.index', 'uses' => 'DepartmentController@index'
+        ]);
+    });
+
     // Rutas para empresas
     $router->group(['prefix' => 'enterprises'], function () use ($router) {
         $router->get('', [

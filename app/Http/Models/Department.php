@@ -27,4 +27,14 @@ class Department extends Model
      * @var array
      */
     protected $fillable = ['name'];
+
+    /**
+     * Obtiene los municipios
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function cities()
+    {
+        return $this->hasMany(City::class);
+    }
 }

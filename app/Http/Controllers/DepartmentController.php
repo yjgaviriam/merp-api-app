@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Models\Department;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 
 /**
@@ -25,8 +27,15 @@ class DepartmentController extends Controller
         $this->request = $request;
     }
 
-    public function store()
+    /**
+     * Permite obtener el listado de departamentos
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function index()
     {
-
+        return response()->json([
+            'data' => Department::all()
+        ], Response::HTTP_OK);
     }
 }
