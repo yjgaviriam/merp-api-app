@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Models\Project;
+use App\Http\Models\User;
 use App\Http\Resources\ProjectResource;
 use Exception;
 use Illuminate\Http\Request;
@@ -41,6 +42,12 @@ class ProjectController extends Controller
         ], Response::HTTP_OK);
     }
 
+    public function indexByUser($userId) {
+        return response()->json([
+            'data' => ProjectResource::collection(Project::with(['city', 'circuit', 'typeNetwork', 'typeTown', 'circuit.substation'])->where('user_id', $userId)->get())
+        ], Response::HTTP_OK);
+    }
+
     /**
      * Permite eliminar un proyecto
      *
@@ -68,8 +75,17 @@ class ProjectController extends Controller
         }
     }
 
-    public function download($code) {
-        dd($code);
+    public function download($code, $userId) {
+        $project = Project::where('code', $code)->first();
+        $user = User::where('id', $userId);
+
+        $project->users()->attach($user->id);
+
+        return response()->json([
+            'data' => [
+                'message' => 'Registro actualizado.'
+            ]
+        ], Response::HTTP_OK);
     }
 
     /**

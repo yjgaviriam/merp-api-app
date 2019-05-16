@@ -94,10 +94,10 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
         $router->get('', [
             'as' => 'projects.index', 'uses' => 'ProjectController@index'
         ]);
-        $router->get('by-user', [
+        $router->get('by-user/{userId}', [
             'as' => 'projects.index.users', 'uses' => 'ProjectController@indexByUser'
         ]);
-        $router->get('download/${}', [
+        $router->get('download/{code}/user/{userId}', [
             'as' => 'projects.index.users', 'uses' => 'ProjectController@download'
         ]);
         $router->post('create', [
