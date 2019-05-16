@@ -68,6 +68,10 @@ class ProjectController extends Controller
         }
     }
 
+    public function download($code) {
+        dd($code);
+    }
+
     /**
      * Permite agregar un nuevo proyecto
      *
