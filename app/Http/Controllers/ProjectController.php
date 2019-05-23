@@ -44,7 +44,8 @@ class ProjectController extends Controller
 
     public function indexByUser($userId) {
         return response()->json([
-            'data' => ProjectResource::collection(Project::with(['city', 'circuit', 'typeNetwork', 'typeTown', 'circuit.substation'])->where('user_id', $userId)->get())
+            'data' => ProjectResource::collection(Project::with(['city', 'circuit', 'typeNetwork', 'typeTown', 'circuit.substation'])
+                ->where('user_id', $userId)->get())
         ], Response::HTTP_OK);
     }
 
@@ -77,7 +78,7 @@ class ProjectController extends Controller
 
     public function download($code, $userId) {
         $project = Project::where('code', $code)->first();
-        $user = User::where('id', $userId);
+        $user = User::where('id', $userId)->first();
 
         $project->users()->attach($user->id);
 

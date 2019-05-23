@@ -10,7 +10,7 @@ use Illuminate\Database\Migrations\Migration;
  * @author Jhonier Gaviria M. - May. 12-2019
  * @version 1.0.0
  */
-class CreateProjectsUsersTable extends Migration
+class CreateProjectUserTable extends Migration
 {
     /**
      * Run the migrations.
@@ -19,7 +19,7 @@ class CreateProjectsUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('projects_users', function (Blueprint $table) {
+        Schema::create('project_user', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('project_id')->unsigned();
             $table->bigInteger('user_id')->unsigned();
@@ -37,6 +37,6 @@ class CreateProjectsUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('projects_users');
+        Schema::dropIfExists('project_user');
     }
 }

@@ -94,4 +94,9 @@ class Project extends Model
     {
         return $this->belongsTo(TypeTown::class);
     }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class);
+    }
 }
