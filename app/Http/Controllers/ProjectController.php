@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Models\Project;
 use App\Http\Models\User;
 use App\Http\Resources\ProjectResource;
+use App\Http\Resources\UserResource;
 use Exception;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -33,27 +35,38 @@ class ProjectController extends Controller
     /**
      * Permite obtener el listado de proyectos
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function index()
     {
         return response()->json([
-            'data' => ProjectResource::collection(Project::with(['city', 'circuit', 'typeNetwork', 'typeTown', 'circuit.substation'])->get())
+            'data' => ProjectResource::collection(Project::with(['city', 'circuit', 'typeNetwork', 'typeTown'])->get())
         ], Response::HTTP_OK);
     }
 
-    public function indexByUser($userId) {
-        return response()->json([
-            'data' => ProjectResource::collection(Project::with(['city', 'circuit', 'typeNetwork', 'typeTown', 'circuit.substation'])
-                ->where('user_id', $userId)->get())
-        ], Response::HTTP_OK);
+    /**
+     * Permite obtener los proyectos asociados a un usuario
+     *
+     * @param $userId Identificador del usuario
+     * @return JsonResponse
+     */
+    public function getProjectsByUser($userId) {
+        try {
+            return response()->json([
+                'data' => ProjectResource::collection(User::findOrFail($userId)->projects()->get())
+            ], Response::HTTP_OK);
+        } catch (Exception $exception) {
+            return response()->json([
+                'data' => []
+            ], Response::HTTP_OK);
+        }
     }
 
     /**
      * Permite eliminar un proyecto
      *
      * @param $projectId Identificador del proyecto
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function destroy($projectId)
     {
@@ -76,23 +89,47 @@ class ProjectController extends Controller
         }
     }
 
-    public function download($code, $userId) {
+    /**
+     * Permite asociar un proyecto a un usuario
+     *
+     * @param $code Identificador del proyecto
+     * @param $userId Identificador del usuario
+     * @return JsonResponse
+     */
+    public function downloadProject($code, $userId) {
         $project = Project::where('code', $code)->first();
         $user = User::where('id', $userId)->first();
 
-        $project->users()->attach($user->id);
+        if ($project !== null && $user !== null) {
+            try {
+                $project->users()->attach($user->id);
+
+                return response()->json([
+                    'data' => [
+                        'message' => 'Registro actualizado.'
+                    ]
+                ], Response::HTTP_OK);
+            } catch (Exception $exception) {
+                return response()->json([
+                    'data' => [
+                        'message' => 'No se ha podido descargar el proyecto.'
+                    ]
+                ], Response::HTTP_BAD_REQUEST);
+            }
+        }
 
         return response()->json([
             'data' => [
-                'message' => 'Registro actualizado.'
+                'message' => 'No se ha podido descargar el proyecto.'
             ]
-        ], Response::HTTP_OK);
+        ], Response::HTTP_BAD_REQUEST);
+
     }
 
     /**
      * Permite agregar un nuevo proyecto
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function store()
     {
@@ -128,7 +165,7 @@ class ProjectController extends Controller
     /**
      * Permite actualizar un proyecto
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function update()
     {
